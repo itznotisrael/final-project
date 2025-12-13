@@ -1,6 +1,5 @@
 // Front end JavaScript code goes here
 
-
 // START WITH AN EMPTY ARRAY
 let todoItems = [];
 

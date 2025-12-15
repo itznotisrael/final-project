@@ -1,6 +1,174 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #0C0F1A;
+  color: rgba(180, 140, 255, 0.8);
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+h1, p {
+  text-align: center;
+}
+
+.vault-background {
+  position: fixed;
+  inset: 0;
+  background: #0C0F1A;
+  z-index: -4;
+}
+
+.nebula {
+  position: fixed;
+  width: 120vw;
+  height: 120vh;
+  top: -10%;
+  left: -10%;
+  background: radial-gradient(
+    circle at 30% 40%,
+    rgba(120, 80, 255, 0.15),
+    transparent 60%
+  ),
+  radial-gradient(
+    circle at 70% 60%,
+    rgba(255, 100, 200, 0.12),
+    transparent 55%
+  ),
+  radial-gradient(
+    circle at 50% 80%,
+    rgba(80, 200, 255, 0.1),
+    transparent 65%
+  );
+  filter: blur(120px);
+  animation: nebulaFloat 90s ease-in-out infinite;
+  z-index: -3;
+}
+
+@keyframes nebulaFloat {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-2%, 1%) scale(1.05);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+.orb {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(180, 140, 255, 0.8),
+    rgba(120, 80, 255, 0.3),
+    transparent 70%
+  );
+  box-shadow: 0 0 15px rgba(180, 140, 255, 0.8);
+  animation:
+    orbFloat 40s linear infinite,
+    orbPulse 6s ease-in-out infinite;
+}
+
+@keyframes orbFloat {
+  0% {
+    transform: translateY(100vh) translateX(0);
+  }
+  100% {
+    transform: translateY(-120vh) translateX(50px);
+  }
+}
+
+@keyframes orbPulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+  animation:
+    particleDrift 25s linear infinite,
+    particleTwinkle 4s ease-in-out infinite;
+}
+
+@keyframes particleDrift {
+  from {
+    transform: translateY(110vh) translateX(0);
+  }
+  to {
+    transform: translateY(-120vh) translateX(30px);
+  }
+}
+
+@keyframes particleTwinkle {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.ripple {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid rgba(180, 140, 255, 0.6);
+  animation: rippleExpand 1.5s ease-out forwards;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes rippleExpand {
+  0% {
+    transform: scale(0.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(25);
+    opacity: 0;
+  }
+}
+
+.sakura {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: pink;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  opacity: 0.15;
+  animation: sakuraDrift 20s linear infinite;
+}
+
+@keyframes sakuraDrift {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nebula,
+  .orb,
+  .particle,
+  .sakura {
+    animation: none;
+  }
 }
 
 a {

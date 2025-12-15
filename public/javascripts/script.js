@@ -1,116 +1,111 @@
-// Front end JavaScript code goes here
+console.log(" NEW SCRIPT LOADED — ANIME MEMORY VAULT ");
 
-// START WITH AN EMPTY ARRAY
-let todoItems = [];
+let memoryItems = [];
 
 // DOM ELEMENTS
-const addItemButton = document.getElementById('add-item-button');
-const list = document.getElementById('list');
-const sortBtn = document.getElementById('sort');
-const clearBtn = document.getElementById('clear');
-const inputField = document.getElementById('text');
 
-// RENDER THE LIST
+const addItemButton = document.getElementById("add-item-button");
+const list = document.getElementById("list");
+const sortBtn = document.getElementById("sort");
+const clearBtn = document.getElementById("clear");
+
+const animeTitleInput = document.getElementById("animeTitle");
+const emotionSelect = document.getElementById("emotion");
+const memoryTextInput = document.getElementById("memoryText");
+
+// RENDER LIST
+
 function updateList() {
-    list.innerHTML = '';
+  list.innerHTML = "";
 
-    for (let i = 0; i < todoItems.length; i++) {
-        const item = todoItems[i];
+  memoryItems.forEach((item) => {
+    const li = document.createElement("li");
+    li.className = "memory-item";
+    li.style.borderLeft = `6px solid ${item.moodColor}`;
 
-        const liElement = document.createElement('li');
-        liElement.innerText = item.name;
-        liElement.id = item._id;
+    li.innerHTML = `
+      <strong class="orb">${item.animeTitle}</strong>
+      <br>
+      <em class="orb">${item.emotion}</em>
+      <br>
+      <p class="orb">${item.memoryText}</p>
+      <br>
+      <button class="delete-btn">✕</button>
+    `;
 
-        if (item.completed) {
-            liElement.classList.add('completed');
-        }
+    li.querySelector(".delete-btn").addEventListener("click", () => {
+      deleteItem(item._id);
+    });
 
-        // Delete button
-        const deleteButton = document.createElement('button');
-        deleteButton.innerHTML = 'x';
-        deleteButton.addEventListener('click', function(e) {
-            e.stopPropagation();
-            deleteItem(item._id);
-        });
-
-        // Toggle completed
-        liElement.addEventListener('click', function () {
-            updateItem(item._id, { completed: !item.completed });
-        });
-
-        liElement.appendChild(deleteButton);
-        list.appendChild(liElement);
-    }
+    list.appendChild(li);
+  });
 }
 
-// ADD ITEM
-addItemButton.addEventListener('click', async function () {
-    const value = inputField.value.trim();
-    if (value.length === 0) return;
+// ADD MEMORY
 
-    await addItem(value);
-    inputField.value = '';
+addItemButton.addEventListener("click", async () => {
+  const animeTitle = animeTitleInput.value.trim();
+  const emotion = emotionSelect.value;
+  const memoryText = memoryTextInput.value.trim();
+
+  if (!animeTitle || !emotion || !memoryText) return;
+
+  await addItem({ animeTitle, emotion, memoryText});
+
+  animeTitleInput.value = "";
+  emotionSelect.value = "";
+  memoryTextInput.value = "";
 });
 
-// SORT ITEMS
+// SORT A–Z
+
 sortBtn.addEventListener("click", () => {
-    todoItems.sort((a, b) => a.name.localeCompare(b.name));
-    updateList();
+  memoryItems.sort((a, b) =>
+    a.animeTitle.localeCompare(b.animeTitle)
+  );
+  updateList();
 });
 
 // CLEAR ALL
+
 clearBtn.addEventListener("click", async () => {
-    for (let i = 0; i < todoItems.length; i++) {
-        await deleteItem(todoItems[i]._id);
-    }
+  for (const item of memoryItems) {
+    await deleteItem(item._id);
+  }
 });
 
-// GET LIST FROM SERVER
-async function getItems() {
-    const response = await fetch('/api/users');
-    const data = await response.json();
+// FETCH ENTRIES
 
-    todoItems = data;
-    updateList();
+async function getItems() {
+  const res = await fetch("/api/users");
+  const data = await res.json();
+
+  console.log("FETCHED ENTRIES:", data);
+
+  memoryItems = data;
+  updateList();
 }
 
 getItems();
 
-// ADD ITEM TO DATABASE
-async function addItem(value) {
-    const postData = {
-        name: value,
-        completed: false
-    };
+// ADD ENTRY
 
-    const response = await fetch('/api/users', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(postData)
-    });
+async function addItem(entry) {
+  const res = await fetch("/api/users", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(entry)
+  });
 
-    await response.json();
-    getItems();
+  const data = await res.json();
+  console.log("ADDED: ", data);
+
+  getItems();
 }
 
-// UPDATE ITEM (TOGGLE COMPLETED)
-async function updateItem(id, updatedValues) {
-    const response = await fetch('/api/users/' + id, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedValues)
-    });
+// DELETE ENTRY
 
-    await response.json();
-    getItems();
-}
-
-// DELETE ITEM
 async function deleteItem(id) {
-    const response = await fetch('/api/users/' + id, {
-        method: 'DELETE'
-    });
-
-    await response.json();
-    getItems();
+  await fetch(`/api/users/${id}`, { method: "DELETE" });
+  getItems();
 }

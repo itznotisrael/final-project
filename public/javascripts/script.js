@@ -7,7 +7,6 @@ let memoryItems = [];
 const addItemButton = document.getElementById("add-item-button");
 const list = document.getElementById("list");
 const sortBtn = document.getElementById("sort");
-const clearBtn = document.getElementById("clear");
 
 const animeTitleInput = document.getElementById("animeTitle");
 const emotionSelect = document.getElementById("emotion");
@@ -24,13 +23,18 @@ function updateList() {
     li.style.borderLeft = `6px solid ${item.moodColor}`;
 
     li.innerHTML = `
-      <strong class="orb">${item.animeTitle}</strong>
-      <br>
-      <em class="orb">${item.emotion}</em>
-      <br>
-      <p class="orb">${item.memoryText}</p>
-      <br>
-      <button class="delete-btn">✕</button>
+    <div class="memory-card">
+        
+    <!-- Soft orb accent -->
+    <div class="memory-orb"></div>
+
+        <div class="memory-content">
+          <strong class="memory-anime">${item.animeTitle}</strong>
+          <em class="memory-emotion">${item.emotion}</em>
+          <p class="memory-text">${item.memoryText}</p>
+        </div>
+    <button class="delete-btn" aria-label="Delete memory">✕</button>
+    </div>
     `;
 
     li.querySelector(".delete-btn").addEventListener("click", () => {
@@ -66,13 +70,13 @@ sortBtn.addEventListener("click", () => {
   updateList();
 });
 
-// CLEAR ALL
+/* CLEAR ALL
 
 clearBtn.addEventListener("click", async () => {
   for (const item of memoryItems) {
     await deleteItem(item._id);
   }
-});
+});*/
 
 // FETCH ENTRIES
 

@@ -2,18 +2,6 @@
 <div class="vault-background"></div>
 <div class="nebula"></div>
 
-<div class="particle">
-  <!-- JS will generate multiple .particle elements -->
-</div>
-
-<div class="orb">
-  <!-- JS will generate decorative background .orb elements -->
-</div>
-
-<div class="ripple">
-  <!-- JS will generate decorative background .orb elements -->
-</div>
-
 <!-- MAIN APP CONTENT -->
 <main class="vault-ui">
 
@@ -23,12 +11,12 @@
     <p>Leave behind a moment that stayed with you.</p>
   </header>
 
-  <!-- SUBMISSION FORM (UPDATED TO MATCH SCHEMA) -->
+  <!-- SUBMISSION FORM (UPDATED TO MATCH SCHEMA)
   <div id="form" class="memory-form">
 
     <input id="emotion" type="text" placeholder="Your Name" required/>
 
-    <select id="animeTitle " required>
+    <select id="animeTitle" required>
       <option value="">Choose Anime</option>
       <option value="Dragon Ball">Dragon Ball</option>
       <option value="One Piece">One Piece</option>
@@ -38,38 +26,69 @@
       <option value="My Hero Academia">My Hero Academia</option>
       <option value="Black Clover">Black Clover</option>
       <option value="Hunter X Hunter">Hunter X Hunter</option>
-
     </select>
 
-<!--    <select id="emotion" required>
-      <option value="">Choose emotion</option>
-      <option value="Hype">Hype</option>
-      <option value="Heartbreak">Heartbreak</option>
-      <option value="Wholesome">Wholesome</option>
-      <option value="Philosophical">Philosophical</option>
-      <option value="Trauma">Trauma</option>
+    <textarea id="memoryText" placeholder="Describe the moment that stayed with you…" required></textarea>
+ -->
+ <div class="memory-form capsule">
+
+  <div class="capsule-orb"></div>
+
+  <label>
+    <span>Your Name</span>
+    <input id="emotion" type="text" placeholder="Who experienced this moment?" />
+  </label>
+
+  <label>
+    <span>Anime</span>
+    <select id="animeTitle">
+      <option value="">Choose Anime</option>
+      <option value="Dragon Ball">Dragon Ball</option>
+      <option value="One Piece">One Piece</option>
+      <option value="Bleach">Bleach</option>
+      <option value="Naruto">Naruto</option>
+      <option value="Jujutsu Kaisen">Jujutsu Kaisen</option>
+      <option value="My Hero Academia">My Hero Academia</option>
+      <option value="Black Clover">Black Clover</option>
+      <option value="Hunter X Hunter">Hunter X Hunter</option>
     </select>
--->
+  </label>
 
-    <textarea
-      id="memoryText"
-      placeholder="Describe the moment that stayed with you…"
-      required
-    ></textarea>
+  <label>
+    <span>Memory</span>
+    <textarea id="memoryText" placeholder="Describe the moment that stayed with you…"></textarea>
+  </label>
 
+</div>
+
+    <div class="particle">
+  <!-- JS will generate multiple .particle elements -->
+    </div>
+
+    <div class="orb">
+    <!-- JS will generate decorative background .orb elements -->
+    </div>
+
+    <div class="ripple">
+    <!-- JS will generate decorative background .orb elements -->
+    </div>
+
+    <div class="sakura">
+    <!-- JS will generate decorative background .orb elements -->
+    </div>
   </div>
 
   <!-- TOOLBAR -->
   <div class="toolbar">
     <button id="sort">Sort A–Z</button>
-    <button id="clear">Clear All</button>
+    <!--<button id="clear">Clear All</button>-->
     <button id="add-item-button" type="button">Add Memory</button>
   </div>
 
-  <!-- MEMORY LIST -->
-  <ul id="list" class="memory-list">
-    <!-- JS injects memory items here -->
-  </ul>
+    <!-- MEMORY LIST -->
+    <ul id="list" class="memory-list">
+
+    </ul>
 
 </main>
 

@@ -22,7 +22,7 @@ function updateList() {
     li.className = "memory-item";
 
     li.innerHTML = `
-      <div class="memory-card">
+      <div class="memory-card slide-in-elliptic-top-fwd">
         <div class="memory-orb"></div>
         <strong class="memory-anime">${item.animeTitle}</strong>
         <em class="memory-emotion">${item.emotion}</em>

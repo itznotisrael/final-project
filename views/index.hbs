@@ -11,84 +11,64 @@
     <p>Leave behind a moment that stayed with you.</p>
   </header>
 
-  <!-- SUBMISSION FORM (UPDATED TO MATCH SCHEMA)
-  <div id="form" class="memory-form">
+  <!-- SUBMISSION FORM -->
+  <div class="memory-form capsule">
 
-    <input id="emotion" type="text" placeholder="Your Name" required/>
+    <!-- Ambient capsule glow orb -->
+    <div class="capsule-orb"></div>
 
-    <select id="animeTitle" required>
-      <option value="">Choose Anime</option>
-      <option value="Dragon Ball">Dragon Ball</option>
-      <option value="One Piece">One Piece</option>
-      <option value="Bleach">Bleach</option>
-      <option value="Naruto">Naruto</option>
-      <option value="Jujutsu Kaisen">Jujutsu Kaisen</option>
-      <option value="My Hero Academia">My Hero Academia</option>
-      <option value="Black Clover">Black Clover</option>
-      <option value="Hunter X Hunter">Hunter X Hunter</option>
-    </select>
+    <!-- Sakura memory weight (form-specific) -->
+    <div class="sakura sakura-form"></div>
 
-    <textarea id="memoryText" placeholder="Describe the moment that stayed with you…" required></textarea>
- -->
- <div class="memory-form capsule">
+    <!-- FORM FIELDS -->
+    <label>
+      <span>Your Name</span>
+      <input
+        id="emotion"
+        type="text"
+        placeholder="Who experienced this moment?"
+      />
+    </label>
 
-  <div class="capsule-orb"></div>
+    <label>
+      <span>Anime</span>
+      <select id="animeTitle">
+        <option value="">Choose Anime</option>
+        <option value="Dragon Ball">Dragon Ball</option>
+        <option value="One Piece">One Piece</option>
+        <option value="Bleach">Bleach</option>
+        <option value="Naruto">Naruto</option>
+        <option value="Jujutsu Kaisen">Jujutsu Kaisen</option>
+        <option value="My Hero Academia">My Hero Academia</option>
+        <option value="Black Clover">Black Clover</option>
+        <option value="Hunter X Hunter">Hunter X Hunter</option>
+      </select>
+    </label>
 
-  <label>
-    <span>Your Name</span>
-    <input id="emotion" type="text" placeholder="Who experienced this moment?" />
-  </label>
+    <label>
+      <span>Memory</span>
+      <textarea
+        id="memoryText"
+        placeholder="Describe the moment that stayed with you…"
+      ></textarea>
+    </label>
 
-  <label>
-    <span>Anime</span>
-    <select id="animeTitle">
-      <option value="">Choose Anime</option>
-      <option value="Dragon Ball">Dragon Ball</option>
-      <option value="One Piece">One Piece</option>
-      <option value="Bleach">Bleach</option>
-      <option value="Naruto">Naruto</option>
-      <option value="Jujutsu Kaisen">Jujutsu Kaisen</option>
-      <option value="My Hero Academia">My Hero Academia</option>
-      <option value="Black Clover">Black Clover</option>
-      <option value="Hunter X Hunter">Hunter X Hunter</option>
-    </select>
-  </label>
-
-  <label>
-    <span>Memory</span>
-    <textarea id="memoryText" placeholder="Describe the moment that stayed with you…"></textarea>
-  </label>
-
-</div>
-
-    <div class="particle">
-  <!-- JS will generate multiple .particle elements -->
-    </div>
-
-    <div class="orb">
-    <!-- JS will generate decorative background .orb elements -->
-    </div>
-
-    <div class="ripple">
-    <!-- JS will generate decorative background .orb elements -->
-    </div>
-
-    <div class="sakura">
-    <!-- JS will generate decorative background .orb elements -->
-    </div>
   </div>
+
+  <!-- ATMOSPHERIC FX LAYERS (JS GENERATED) -->
+  <div class="particle"></div>
+  <div class="orb"></div>
+  <div class="ripple"></div>
+  <div class="sakura"></div>
 
   <!-- TOOLBAR -->
   <div class="toolbar">
     <button id="sort">Sort A–Z</button>
-    <!--<button id="clear">Clear All</button>-->
+    <!-- <button id="clear">Clear All</button> -->
     <button id="add-item-button" type="button">Add Memory</button>
   </div>
 
-    <!-- MEMORY LIST -->
-    <ul id="list" class="memory-list">
-
-    </ul>
+  <!-- MEMORY LIST -->
+  <ul id="list" class="memory-list"></ul>
 
 </main>
-

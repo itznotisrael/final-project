@@ -1,18 +1,18 @@
-console.log(" NEW SCRIPT LOADED — ANIME MEMORY VAULT ");
+console.log("NEW SCRIPT LOADED — ANIME MEMORY VAULT");
 
 let memoryItems = [];
 
-// DOM ELEMENTS
+/* ================= DOM ================= */
 
 const addItemButton = document.getElementById("add-item-button");
 const list = document.getElementById("list");
 const sortBtn = document.getElementById("sort");
 
 const animeTitleInput = document.getElementById("animeTitle");
-const emotionSelect = document.getElementById("emotion");
+const emotionInput = document.getElementById("emotion");
 const memoryTextInput = document.getElementById("memoryText");
 
-// RENDER LIST
+/* ================= RENDER ================= */
 
 function updateList() {
   list.innerHTML = "";
@@ -20,21 +20,15 @@ function updateList() {
   memoryItems.forEach((item) => {
     const li = document.createElement("li");
     li.className = "memory-item";
-    li.style.borderLeft = `6px solid ${item.moodColor}`;
 
     li.innerHTML = `
-    <div class="memory-card">
-        
-    <!-- Soft orb accent -->
-    <div class="memory-orb"></div>
-
-        <div class="memory-content">
-          <strong class="memory-anime">${item.animeTitle}</strong>
-          <em class="memory-emotion">${item.emotion}</em>
-          <p class="memory-text">${item.memoryText}</p>
-        </div>
-    <button class="delete-btn" aria-label="Delete memory">✕</button>
-    </div>
+      <div class="memory-card">
+        <div class="memory-orb"></div>
+        <strong class="memory-anime">${item.animeTitle}</strong>
+        <em class="memory-emotion">${item.emotion}</em>
+        <p class="memory-text">${item.memoryText}</p>
+        <button class="delete-btn">✕</button>
+      </div>
     `;
 
     li.querySelector(".delete-btn").addEventListener("click", () => {
@@ -45,23 +39,23 @@ function updateList() {
   });
 }
 
-// ADD MEMORY
+/* ================= ADD MEMORY ================= */
 
 addItemButton.addEventListener("click", async () => {
   const animeTitle = animeTitleInput.value.trim();
-  const emotion = emotionSelect.value;
+  const emotion = emotionInput.value.trim();
   const memoryText = memoryTextInput.value.trim();
 
   if (!animeTitle || !emotion || !memoryText) return;
 
-  await addItem({ animeTitle, emotion, memoryText});
+  await addItem({ animeTitle, emotion, memoryText });
 
   animeTitleInput.value = "";
-  emotionSelect.value = "";
+  emotionInput.value = "";
   memoryTextInput.value = "";
 });
 
-// SORT A–Z
+/* ================= SORT ================= */
 
 sortBtn.addEventListener("click", () => {
   memoryItems.sort((a, b) =>
@@ -70,46 +64,27 @@ sortBtn.addEventListener("click", () => {
   updateList();
 });
 
-/* CLEAR ALL
-
-clearBtn.addEventListener("click", async () => {
-  for (const item of memoryItems) {
-    await deleteItem(item._id);
-  }
-});*/
-
-// FETCH ENTRIES
+/* ================= API ================= */
 
 async function getItems() {
   const res = await fetch("/api/users");
   const data = await res.json();
-
-  console.log("FETCHED ENTRIES:", data);
-
   memoryItems = data;
   updateList();
 }
 
-getItems();
-
-// ADD ENTRY
-
 async function addItem(entry) {
-  const res = await fetch("/api/users", {
+  await fetch("/api/users", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(entry)
   });
-
-  const data = await res.json();
-  console.log("ADDED: ", data);
-
   getItems();
 }
-
-// DELETE ENTRY
 
 async function deleteItem(id) {
   await fetch(`/api/users/${id}`, { method: "DELETE" });
   getItems();
 }
+
+getItems();

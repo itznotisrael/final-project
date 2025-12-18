@@ -1,15 +1,20 @@
+/* ================= GLOBAL ================= */
+
 body {
   margin: 0;
   padding: 0;
   background: #0C0F1A;
-  color: rgba(180, 140, 255, 0.8);
-  overflow: hidden;
+  color: rgba(180, 140, 255, 0.85);
+  overflow-x: hidden;
+  overflow-y: auto;
   font-family: 'Inter', sans-serif;
 }
 
 h1, p {
   text-align: center;
 }
+
+/* ================= BACKGROUND ================= */
 
 .vault-background {
   position: fixed;
@@ -20,160 +25,142 @@ h1, p {
 
 .nebula {
   position: fixed;
-  width: 120vw;
-  height: 120vh;
-  top: -10%;
-  left: -10%;
-  background: radial-gradient(
-    circle at 30% 40%,
-    rgba(120, 80, 255, 0.15),
-    transparent 60%
-  ),
-  radial-gradient(
-    circle at 70% 60%,
-    rgba(255, 100, 200, 0.12),
-    transparent 55%
-  ),
-  radial-gradient(
-    circle at 50% 80%,
-    rgba(80, 200, 255, 0.1),
-    transparent 65%
-  );
+  inset: -10%;
+  background:
+    radial-gradient(circle at 30% 40%, rgba(120,80,255,.15), transparent 60%),
+    radial-gradient(circle at 70% 60%, rgba(255,100,200,.12), transparent 55%),
+    radial-gradient(circle at 50% 80%, rgba(80,200,255,.1), transparent 65%);
   filter: blur(120px);
   animation: nebulaFloat 90s ease-in-out infinite;
   z-index: -3;
 }
 
 @keyframes nebulaFloat {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-  50% {
-    transform: translate(-2%, 1%) scale(1.05);
-  }
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
+  0%,100% { transform: translate(0,0) scale(1); }
+  50% { transform: translate(-2%,1%) scale(1.05); }
+}
+
+/* ================= FX ELEMENTS ================= */
+
+.orb,
+.particle,
+.sakura {
+  position: absolute;
+  pointer-events: none;
 }
 
 .orb {
-  position: absolute;
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(180, 140, 255, 0.8),
-    rgba(120, 80, 255, 0.3),
-    transparent 70%
-  );
-  box-shadow: 0 0 15px rgba(180, 140, 255, 0.8);
-  animation:
-    orbFloat 40s linear infinite,
-    orbPulse 6s ease-in-out infinite;
+  background: radial-gradient(circle, rgba(180,140,255,.8), transparent 70%);
+  box-shadow: 0 0 15px rgba(180,140,255,.8);
+  animation: orbFloat 40s linear infinite, orbPulse 6s ease-in-out infinite;
 }
 
 @keyframes orbFloat {
-  0% {
-    transform: translateY(100vh) translateX(0);
-  }
-  100% {
-    transform: translateY(-120vh) translateX(50px);
-  }
+  from { transform: translateY(110vh); }
+  to { transform: translateY(-120vh) translateX(50px); }
 }
 
 @keyframes orbPulse {
-  0%, 100% {
-    opacity: 0.6;
-  }
-  50% {
-    opacity: 1;
-  }
+  0%,100% { opacity: .6; }
+  50% { opacity: 1; }
 }
 
 .particle {
-  position: absolute;
   width: 3px;
   height: 3px;
-  background: rgba(255, 255, 255, 0.9);
+  background: white;
   border-radius: 50%;
-  box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
-  animation:
-    particleDrift 25s linear infinite,
-    particleTwinkle 4s ease-in-out infinite;
+  box-shadow: 0 0 6px white;
+  animation: particleDrift 25s linear infinite, particleTwinkle 4s ease-in-out infinite;
 }
 
 @keyframes particleDrift {
-  from {
-    transform: translateY(110vh) translateX(0);
-  }
-  to {
-    transform: translateY(-120vh) translateX(30px);
-  }
+  from { transform: translateY(110vh); }
+  to { transform: translateY(-120vh) translateX(30px); }
 }
 
 @keyframes particleTwinkle {
-  0%, 100% {
-    opacity: 0.4;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
-.ripple {
-  position: fixed;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: 2px solid rgba(180, 140, 255, 0.6);
-  animation: rippleExpand 1.5s ease-out forwards;
-  pointer-events: none;
-  z-index: -1;
-}
-
-@keyframes rippleExpand {
-  0% {
-    transform: scale(0.2);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(25);
-    opacity: 0;
-  }
+  0%,100% { opacity: .4; }
+  50% { opacity: 1; }
 }
 
 .sakura {
-  position: absolute;
   width: 18px;
   height: 18px;
   background: pink;
   clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-  opacity: 0.15;
+  opacity: .15;
   animation: sakuraDrift 20s linear infinite;
 }
 
 @keyframes sakuraDrift {
-  0% {
-    transform: translateY(-10vh) rotate(0deg);
-  }
-  100% {
-    transform: translateY(110vh) rotate(360deg);
-  }
+  from { transform: translateY(-10vh) rotate(0deg); }
+  to { transform: translateY(110vh) rotate(360deg); }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .nebula,
-  .orb,
-  .particle,
-  .sakura {
-    animation: none;
-  }
+.sakura-form {
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation-duration: 40s;
 }
 
-a {
-  color: #00B7FF;
+/* ================= UI ================= */
+
+.vault-ui {
+  position: relative;
+  z-index: 1;
 }
+
+.memory-form {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: rgba(20,15,45,.6);
+  border-radius: 24px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 40px rgba(120,80,255,.2);
+  position: relative;
+}
+
+.capsule-orb {
+  position: absolute;
+  inset: -20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(180,140,255,.12), transparent 70%);
+  z-index: -1;
+}
+
+.memory-form label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.3rem;
+  font-size: .75rem;
+  letter-spacing: .08em;
+}
+
+.memory-form input,
+.memory-form select,
+.memory-form textarea {
+  background: rgba(0,0,0,.3);
+  border: 1px solid rgba(180,140,255,.3);
+  border-radius: 12px;
+  padding: .8rem;
+  color: #e5d9ff;
+}
+
+.memory-form input:focus,
+.memory-form textarea:focus,
+.memory-form select:focus {
+  outline: none;
+  border-color: rgba(180,140,255,.8);
+  box-shadow: 0 0 25px rgba(180,140,255,.6);
+}
+
+/* ================= TOOLBAR ================= */
 
 .toolbar {
   display: flex;
@@ -183,129 +170,52 @@ a {
 }
 
 .toolbar button {
-  background: rgba(40, 30, 80, 0.6);
-  border: 1px solid rgba(180, 140, 255, 0.4);
+  background: rgba(40,30,80,.6);
+  border: 1px solid rgba(180,140,255,.4);
   color: #d7c4ff;
-  padding: 0.6rem 1.2rem;
+  padding: .6rem 1.2rem;
   border-radius: 999px;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: .25s;
 }
 
 .toolbar button:hover {
-  background: rgba(180, 140, 255, 0.2);
-  box-shadow: 0 0 20px rgba(180, 140, 255, 0.4);
+  background: rgba(180,140,255,.2);
+  box-shadow: 0 0 20px rgba(180,140,255,.4);
 }
+
+/* ================= MEMORY CARDS ================= */
 
 .memory-item {
   list-style: none;
-  margin: 1rem auto;
   max-width: 600px;
+  margin: 1rem auto;
 }
 
 .memory-card {
-  position: relative;
-  background: rgba(20, 15, 45, 0.6);
-  backdrop-filter: blur(10px);
+  background: rgba(20,15,45,.6);
   border-radius: 18px;
   padding: 1.2rem 1.5rem;
-  box-shadow: 0 0 30px rgba(120, 80, 255, 0.15);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.memory-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 0 40px rgba(180, 140, 255, 0.3);
+  position: relative;
+  box-shadow: 0 0 30px rgba(120,80,255,.15);
 }
 
 .memory-orb {
   position: absolute;
-  top: -10px;
-  right: -10px;
+  top: -8px;
+  right: -8px;
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(180, 140, 255, 0.9),
-    transparent 70%
-  );
-  box-shadow: 0 0 15px rgba(180, 140, 255, 0.8);
-}
-
-.memory-anime {
-  display: block;
-  font-size: 1.1rem;
-  color: #e7dbff;
-}
-
-.memory-emotion {
-  display: block;
-  font-size: 0.85rem;
-  opacity: 0.7;
-  margin-bottom: 0.5rem;
-}
-
-.memory-text {
-  line-height: 1.4;
+  background: radial-gradient(circle, rgba(180,140,255,.9), transparent);
 }
 
 .delete-btn {
   position: absolute;
   top: 10px;
   left: 10px;
-  background: transparent;
+  background: none;
   border: none;
-  color: rgba(255, 160, 160, 0.8);
-  font-size: 1rem;
+  color: rgba(255,160,160,.8);
   cursor: pointer;
-}
-
-.delete-btn:hover {
-  color: #ff6b6b;
-}
-
-.memory-form label {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1.2rem;
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  opacity: 0.8;
-}
-
-.memory-form input,
-.memory-form select,
-.memory-form textarea {
-  background: rgba(0,0,0,0.3);
-  border: 1px solid rgba(180, 140, 255, 0.3);
-  border-radius: 12px;
-  padding: 0.8rem;
-  color: #e5d9ff;
-}
-
-.memory-form input:focus,
-.memory-form textarea:focus,
-.memory-form select:focus {
-  outline: none;
-  box-shadow: 0 0 25px rgba(180, 140, 255, 0.6);
-  border-color: rgba(180, 140, 255, 0.8);
-}
-
-#add-item-button {
-  position: relative;
-  overflow: hidden;
-}
-
-#add-item-button::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle, rgba(180,140,255,0.4), transparent);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-#add-item-button:hover::after {
-  opacity: 1;
 }

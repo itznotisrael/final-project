@@ -417,3 +417,14 @@ h1, p {
   color: rgba(255,160,160,.8);
   cursor: pointer;
 }
+
+/* MEMORY GRID CONTAINER */
+.memory-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto 4rem;
+  overflow-y: auto;
+}
